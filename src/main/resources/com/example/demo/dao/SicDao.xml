@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.SicDao">
+<!--    <select id="getUser" resultType="com.example.demo.data.User">-->
+<!--        SELECT * FROM Users WHERE id = #{id}-->
+<!--    </select>-->
+    <resultMap id="activity" type="com.example.demo.data.Activity">
+        <id column="activity_id" property="id"/>
+        <result column="activity_type" property="type"/>
+        <result column="activity_name" property="activity_name"/>
+        <result column="activity_description" property="activity_description"/>
+        <result column="join_nummber" property="join_nummber"/>
+        <result column="picture_path" property="picture_path"/>
+    </resultMap>
+
+    <select id="getActivity" resultType="com.example.demo.data.Activity">
+        SELECT * FROM Activity WHERE activity_id = #{id}
+    </select>
+
+    <select id="getActivitybyName" resultType="java.lang.Boolean">
+        SELECT * FROM Activity WHERE activity_name = #{activity_name}
+    </select>
+
+    <select id="getItem" resultType="com.example.demo.data.Item">
+        SELECT * FROM Item WHERE item_id = #{id}
+    </select>
+
+    <select id="getRecord" resultType="com.example.demo.data.ActivityRecord">
+        SELECT * FROM ActivityRecord WHERE activityid = #{activity_id} and userid = #{user_id}
+    </select>
+
+    <select id="login" resultType="java.lang.Boolean">
+        SELECT * FROM Users WHERE account = #{account} AND pass = #{pass}
+    </select>
+
+    <select id="getUser" resultType="com.example.demo.data.User">
+        SELECT * FROM Users WHERE account = #{account}
+    </select>
+
+    <select id="getActivities"  resultMap="activity">
+        SELECT * FROM Activity
+    </select>
+
+    <insert id="InsertRecord" parameterType="com.example.demo.data.ActivityRecord">
+        INSERT INTO ActivityRecord (activityid,userid) VALUES (#{activityid},#{userid});
+    </insert>
+
+    <insert id="addUser" parameterType="com.example.demo.data.User">
+        INSERT INTO Users (account,pass,wechatname,wechatnummber,score)VALUES(#{account},#{pass},#{wechatname},#{wechatnummber},#{score});
+    </insert>
+
+    <insert id="addActivity" parameterType="com.example.demo.data.Activity">
+        INSERT INTO Activity (activity_name,activity_description,picture_path,activity_type) VALUES (#{activity_name},#{activity_description},#{picture_path},#{type});
+    </insert>
+
+</mapper>
