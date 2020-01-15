@@ -4,6 +4,7 @@ import com.example.demo.common.Result;
 import com.example.demo.common.ResultCode;
 import com.example.demo.data.User;
 import com.example.demo.util.ResultUtil;
+import com.example.demo.util.TokenUtil;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,7 +35,7 @@ public class UserControl {
         response.setHeader("Access-Control-Allow-Origin", "*");
         Boolean success = MyBatis.getMyBatis().getQiandao().login(account,pass);
         if(success!=null&&success) {
-            return ResultUtil.success(MyBatis.getMyBatis().getQiandao().getUser(account).getId(),ResultCode.USER_UID);
+            return ResultUtil.success(TokenUtil.sign(account,pass,6*60*60*1000),ResultCode.USER_UID);
         }
         return ResultUtil.fail();
     }

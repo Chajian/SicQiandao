@@ -28,7 +28,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@RestController
+@RestController("/api")
 public class QiandaoControl implements Qiandao {
 
     @Value("${prop.upload-folder}")
